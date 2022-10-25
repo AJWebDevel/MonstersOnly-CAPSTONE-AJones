@@ -1,4 +1,7 @@
 import { Outlet, Route, Routes } from "react-router-dom";
+import { LandingPage } from "../LandingPage/LandingPage";
+import { ProfileContainer } from "../Profile/Profile";
+import { UserList } from "../UserList/UserList";
 
 export const AdminViews = () => {
     return (
@@ -12,9 +15,9 @@ export const AdminViews = () => {
                 </>
             }>
 
-                <Route path="UserList" element={< />} / >
-                    <Route path="UserList/:daterId" element={< />} / >
-                        <Route path="LandingPage" element={< />} / > <Route path="customers" element={<CustomerList />} />
+                <Route path="UserList" element={<UserList />} />
+                <Route path="UserList/:dater" element={<ProfileContainer />} />
+                <Route path="LandingPage" element={<LandingPage />} />
             </Route>
         </Routes>
     )
