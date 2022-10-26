@@ -15,7 +15,7 @@ export const DaterViews = () => {
                 </>
             }>
 
-                <Route path="Profile" element={<ProfileContainer />} />
+                <Route path="Profile/:daterId" element={<ProfileContainer />} />
                 <Route path="EditProfile" element={<EditProfile />} />
                 <Route path="Matches" element={<Matches />} />
             </Route>
