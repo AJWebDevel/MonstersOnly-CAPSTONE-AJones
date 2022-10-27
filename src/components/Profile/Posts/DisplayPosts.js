@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 
 
 export const DisplayPosts = () => {
     const localMonsterUser = localStorage.getItem("monster_user")
     const monsterUserObj = JSON.parse(localMonsterUser)
     const [posts, setPosts] = useState([])
-
+    const { daterId } = useParams()
 
 
     //get posts
@@ -40,7 +41,7 @@ export const DisplayPosts = () => {
     return (<div>
         < h3 > Posts</h3 >
         {posts.map((post) => {
-            if (post.userId === monsterUserObj.id) {
+            if (post.userId === daterId) {
                 return <>
                     <div>{post?.user?.fullName} said...</div>
                     <div className="postContent">{post.content}</div>

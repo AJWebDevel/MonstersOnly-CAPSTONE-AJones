@@ -71,7 +71,7 @@ export const UserList = () => {
                         <article className="individualDater">
                             <img src={dater.imgURL}
                                 alt="daterPhoto" className="daterImg" />
-                            <h3><Link to="/Profile/{dater.userId}">{dater?.user?.fullName}</Link></h3>
+                            <h3><Link to={`/Profile/${dater.userId}`}>{dater?.user?.fullName}</Link></h3>
                             <div>
                                 Username: {dater.username}
                                 Age: {dater.age}
