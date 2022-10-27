@@ -7,7 +7,7 @@ export const CreatePost = () => {
 
     const [post, setPost] = useState({
         userId: 0,
-        content: "",
+        content: ""
     })
 
 
@@ -29,6 +29,7 @@ export const CreatePost = () => {
             body: JSON.stringify(post)
         }).then(response => response.json())
 
+        window.location.reload()
     }
 
     //return new post form
@@ -46,8 +47,8 @@ export const CreatePost = () => {
                         onChange={
                             (event) => {
                                 const copy = { ...post }
-                                post.content = event.target.value
-                                post.userId = monsterUserObj.id
+                                copy.content = event.target.value
+                                copy.userId = monsterUserObj.id
                                 setPost(copy)
                             }
                         }
