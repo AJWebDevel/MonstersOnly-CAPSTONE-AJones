@@ -57,7 +57,7 @@ export const Matches = () => {
     )
     useEffect(
         () => {
-            fetch(`http://localhost:8088/dislikes?_expand=user`)
+            fetch(`http://localhost:8088/dislikes?_expand=topic`)
                 .then(response => response.json())
                 .then((dislikesWithTopicArray) => {
                     setDislikesWithTopic(dislikesWithTopicArray)
@@ -82,22 +82,31 @@ export const Matches = () => {
                                 Location: {dater.location}
                                 Likes: {likes.map(
                                     like => {
-                                        if (dater.userId === like?.user?.id) {
-                                            return <p>{like?.TopicId}</p>
-                                        }
+                                        return likesWithTopic.map(
+                                            likeWTopic => {
+                                                if (like.userId === dater.userId && likeWTopic.userId === dater.userId) {
+                                                    return <p>{likeWTopic?.topic?.text}</p>
+
+                                                }
+                                            }
+                                        )
                                     }
                                 )
 
                                 }
 
+
                                 Dislikes: {dislikes.map(
                                     dislike => {
-                                        dislikesWithTopic.map(
+                                        return dislikesWithTopic.map(
                                             dislikeWTopic => {
-                                                if (dater.userId === dislike.userId && dater.userId === dislikeWTopic.userId) {
-                                                    <p>{dislikeWTopic?.topic?.text}</p>
+
+                                                if (dislike.userId === dater.userId && dislikeWTopic.userId === dater.userId) {
+                                                    return <p>{dislikeWTopic?.topic?.text}</p>;
                                                 }
+
                                             }
+
                                         )
                                     }
                                 )
