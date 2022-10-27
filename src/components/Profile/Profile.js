@@ -10,9 +10,9 @@ export const ProfileContainer = () => {
 
     return <>
         <ProfileDisplay />
-        <EditProfile />
-        <DisplayPosts />
+
         <CreatePost />
+        <DisplayPosts />
 
     </>
 }

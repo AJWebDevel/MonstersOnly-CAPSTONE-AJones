@@ -68,5 +68,6 @@ export const ProfileDisplay = () => {
                 }
             )
         }
+        <button><Link to="/EditProfile">Edit Profile</Link></button>
     </div>)
 }

@@ -8,6 +8,8 @@ export const Matches = () => {
 
     const [daters, setDaters] = useState([])
     const [likes, setLikes] = useState([])
+    const [likesWithTopic, setLikesWithTopic] = useState([])
+    const [dislikesWithTopic, setDislikesWithTopic] = useState([])
     const [dislikes, setDislikes] = useState([])
 
     const localMonsterUser = localStorage.getItem("monster_user")
@@ -35,10 +37,30 @@ export const Matches = () => {
     )
     useEffect(
         () => {
+            fetch(`http://localhost:8088/likes?_expand=topic`)
+                .then(response => response.json())
+                .then((likesTopicsArray) => {
+                    setLikesWithTopic(likesTopicsArray)
+                })
+        },
+        []
+    )
+    useEffect(
+        () => {
             fetch(`http://localhost:8088/dislikes?_expand=user`)
                 .then(response => response.json())
                 .then((dislikesArray) => {
                     setDislikes(dislikesArray)
+                })
+        },
+        []
+    )
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/dislikes?_expand=user`)
+                .then(response => response.json())
+                .then((dislikesWithTopicArray) => {
+                    setDislikesWithTopic(dislikesWithTopicArray)
                 })
         },
         []
@@ -60,8 +82,8 @@ export const Matches = () => {
                                 Location: {dater.location}
                                 Likes: {likes.map(
                                     like => {
-                                        if (dater.userId === like.userId) {
-                                            <p>{like?.topic?.text}</p>
+                                        if (dater.userId === like?.user?.id) {
+                                            return <p>{like?.TopicId}</p>
                                         }
                                     }
                                 )
@@ -70,9 +92,13 @@ export const Matches = () => {
 
                                 Dislikes: {dislikes.map(
                                     dislike => {
-                                        if (dater.userId === dislike.userId) {
-                                            <p>{dislike?.topic?.text}</p>
-                                        }
+                                        dislikesWithTopic.map(
+                                            dislikeWTopic => {
+                                                if (dater.userId === dislike.userId && dater.userId === dislikeWTopic.userId) {
+                                                    <p>{dislikeWTopic?.topic?.text}</p>
+                                                }
+                                            }
+                                        )
                                     }
                                 )
 
