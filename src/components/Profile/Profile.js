@@ -6,15 +6,25 @@ import { DisplayPosts } from "./Posts/DisplayPosts";
 
 
 export const ProfileContainer = () => {
+    const localMonsterUser = localStorage.getItem("monster_user")
+    const monsterUserObj = JSON.parse(localMonsterUser)
+    if (monsterUserObj.isAdmin) {
+        return <>
+            <ProfileDisplay />
 
+            <DisplayPosts />
 
-    return <>
-        <ProfileDisplay />
+        </>
+    }
+    {
+        return <>
+            <ProfileDisplay />
 
-        <CreatePost />
-        <DisplayPosts />
+            <CreatePost />
+            <DisplayPosts />
 
-    </>
+        </>
+    }
 }
 
 

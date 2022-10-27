@@ -3,11 +3,13 @@ import "./NavBar.css"
 
 export const DaterNav = () => {
     const navigate = useNavigate()
+    const localMonsterUser = localStorage.getItem("monster_user")
+    const monsterUserObj = JSON.parse(localMonsterUser)
 
     return (
         <ul className="navbar">
             <li className="navbar__item active">
-                <Link className="navbar__link" to="/Profile/daterId">Profile</Link>
+                <Link className="navbar__link" to={`/Profile/${monsterUserObj.id}`}>Profile</Link>
             </li>
             <li className="navbar__item active">
                 <Link className="navbar__link" to="/Matches">Matches</Link>
