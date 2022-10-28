@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import { DislikesFinder } from "./Dislike"
+import { LikesFinder } from "./Like"
 
 export const UserList = () => {
     const [daters, setDaters] = useState([])
@@ -61,6 +63,7 @@ export const UserList = () => {
         []
     )
 
+
     return (<div className="datingUsers">
         <h2>User List</h2>
         {
@@ -76,37 +79,15 @@ export const UserList = () => {
                                 Username: {dater.username}
                                 Age: {dater.age}
                                 Location: {dater.location}
-                                Likes: {likes.map(
-                                    like => {
-                                        return likesWithTopic.map(
-                                            likeWTopic => {
-                                                if (like.userId === dater.userId && likeWTopic.userId === dater.userId) {
-                                                    return <p>{likeWTopic?.topic?.text}</p>
+                                Likes: <LikesFinder dater={dater} />
 
-                                                }
-                                            }
-                                        )
-                                    }
-                                )
+                                Dislikes: <DislikesFinder dater={dater} />
+                                <button onClick={() => {
+                                    fetch(`http://localhost:8088/daters?id={daterId}`, {
+                                        method: "DELETE",
 
-                                }
-
-                                Dislikes: {dislikes.map(
-                                    dislike => {
-                                        return dislikesWithTopic.map(
-                                            dislikeWTopic => {
-
-                                                if (dislike.userId === dater.userId && dislikeWTopic.userId === dater.userId) {
-                                                    return <p>{dislikeWTopic?.topic?.text}</p>;
-                                                }
-
-                                            }
-
-                                        )
-                                    }
-                                )
-
-                                }
+                                    })
+                                }} className="deleteButton" > Delete</button >
                             </div>
                         </article>
                     </>

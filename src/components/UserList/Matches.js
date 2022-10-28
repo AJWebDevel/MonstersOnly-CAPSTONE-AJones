@@ -1,8 +1,8 @@
 
-
-
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
+import { DislikesFinder } from "./Dislike"
+import { LikesFinder } from "./Like"
 
 export const Matches = () => {
 
@@ -14,6 +14,8 @@ export const Matches = () => {
 
     const localMonsterUser = localStorage.getItem("monster_user")
     const monsterUserObj = JSON.parse(localMonsterUser)
+    const { daterId } = useParams()
+
 
     useEffect(
         () => {
@@ -52,6 +54,7 @@ export const Matches = () => {
                 .then((dislikesArray) => {
                     setDislikes(dislikesArray)
                 })
+
         },
         []
     )
@@ -66,56 +69,38 @@ export const Matches = () => {
         []
     )
 
+
+    const seenDaters =
+        daters.filter((dater) => {
+            return dater.userId !== monsterUserObj.id
+
+        })
+
+
     return (<div className="datingUsers">
         <h2>Potential Matches</h2>
         {
-            daters.map(
+            seenDaters.map(
                 dater => {
                     return <>
                         <article className="individualDater">
                             <img src={dater.imgURL}
                                 alt="daterPhoto" className="daterImg" />
-                            <h3><Link to={`/Profile/${dater.userId}`}>{dater?.user?.fullName}</Link></h3>
+                            <h3><Link to={`Profile/${dater.userId}`}>{dater?.user?.fullName}</Link></h3>
                             <div>
                                 Username: {dater.username}
                                 Age: {dater.age}
                                 Location: {dater.location}
-                                Likes: {likes.map(
-                                    like => {
-                                        return likesWithTopic.map(
-                                            likeWTopic => {
-                                                if (like.userId === dater.userId && likeWTopic.userId === dater.userId) {
-                                                    return <p>{likeWTopic?.topic?.text}</p>
-
-                                                }
-                                            }
-                                        )
-                                    }
-                                )
-
-                                }
+                                Likes: <LikesFinder dater={dater} />
 
 
-                                Dislikes: {dislikes.map(
-                                    dislike => {
-                                        return dislikesWithTopic.map(
-                                            dislikeWTopic => {
-
-                                                if (dislike.userId === dater.userId && dislikeWTopic.userId === dater.userId) {
-                                                    return <p>{dislikeWTopic?.topic?.text}</p>;
-                                                }
-
-                                            }
-
-                                        )
-                                    }
-                                )
-
-                                }
+                                Dislikes: <DislikesFinder dater={dater} />
                             </div>
-                            <button>
 
-                            </button>
+                            <button className="acceptButton" > Accept!</button >
+                            <button className="rejectButton" > Reject!</button >
+
+
                         </article>
                     </>
                 })
