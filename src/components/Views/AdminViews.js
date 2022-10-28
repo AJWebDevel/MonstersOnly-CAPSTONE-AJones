@@ -16,7 +16,7 @@ export const AdminViews = () => {
             }>
 
                 <Route path="UserList" element={<UserList />} />
-                <Route path="UserList/:daterId" element={<ProfileContainer />} />
+                <Route path="Profile/:daterId" element={<ProfileContainer />} />
                 <Route path="LandingPage" element={<LandingPage />} />
             </Route>
         </Routes>

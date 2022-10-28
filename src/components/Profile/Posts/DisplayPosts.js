@@ -9,10 +9,12 @@ export const DisplayPosts = () => {
     const { daterId } = useParams()
 
 
+
+
     //get posts
     useEffect(
         () => {
-            fetch(`http://localhost:8088/posts?_expand=user`)
+            fetch(`http://localhost:8088/posts?_expand=user&userId=${daterId}`)
                 .then(res => res.json())
                 .then((data) => {
                     setPosts(data)
@@ -25,33 +27,29 @@ export const DisplayPosts = () => {
     //function to give id of post clicked as id arg
 
 
-
-
-    const deletePost = (post) => {
-        if (post.userId === monsterUserObj.id) {
-            return <button onClick={() => {
-                fetch(`http://localhost:8088/posts?id=${post.id}`, {
-                    method: "DELETE"
-                })
-            }} className="deleteButton" > Delete</button >
+    const deletePost = () => {
+        return fetch(`http://localhost:8088/posts?userId=${daterId}`), {
+            method: "DELETE",
         }
-
     }
 
-    return (<div>
-        < h3 > Posts</h3 >
-        {posts.map((post) => {
-            if (post.userId === daterId) {
-                return <>
-                    <div>{post?.user?.fullName} said...</div>
-                    <div className="postContent">{post.content}</div>
-                    {deletePost(post)}
 
-                </>
-            }
+    return <> {posts.map(
+        (post) => {
+            const postDelete = deletePost()
+            return <div>
+                <div>{post?.user?.fullName} said...</div>
+                <div className="postContent">{post.content}</div>
+                {(post.userId === monsterUserObj.id) ?
+                    (<button onClick={() => deletePost()}>Delete Post</button>)
+                    : (<></>)
+                }
 
-        })
+
+            </div>
+
         }
+    )}</>
 
-    </div>)
+
 }
