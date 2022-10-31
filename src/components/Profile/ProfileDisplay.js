@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useParams } from "react-router-dom"
+
+import { EditProfile } from "./EditProfile"
+
 
 
 
@@ -14,6 +17,7 @@ export const ProfileDisplay = () => {
 
     const [daters, updateDaters] = useState([])
 
+    const navigate = useNavigate()
 
     useEffect(
         () => {
@@ -43,11 +47,17 @@ export const ProfileDisplay = () => {
                         return (<section className="customer">
                             <header>{dater?.user?.fullName}</header>
                             <footer>Age: {dater.age}</footer>
-                            <button><Link to="/EditProfile">Edit Profile</Link></button>
+
                         </section>)
                     }
                 }
             )
+
+
         }
+        <button onClick={() => {
+            navigate("Profile/:daterId")
+        }}>Edit Profile </button>
     </div>)
 }
+

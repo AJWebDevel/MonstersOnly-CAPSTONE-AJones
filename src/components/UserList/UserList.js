@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { useEffect, useState, useSyncExternalStore } from "react"
+import { Link, useFetcher } from "react-router-dom"
 import { DislikesFinder } from "./Dislike"
 import { LikesFinder } from "./Like"
 
@@ -9,6 +9,9 @@ export const UserList = () => {
     const [dislikes, setDislikes] = useState([])
     const [likesWithTopic, setLikesWithTopic] = useState([])
     const [dislikesWithTopic, setDislikesWithTopic] = useState([])
+
+    const localMonsterUser = localStorage.getItem("monster_user")
+    const monsterUserObj = JSON.parse(localMonsterUser)
 
     useEffect(
         () => {
@@ -63,11 +66,18 @@ export const UserList = () => {
         []
     )
 
+    const deleteButton = (dater) => {
+        if (monsterUserObj.isAdmin === true) {
+            return
+        } else {
+            return ""
+        }
+    }
 
     return (<div className="datingUsers">
         <h2>User List</h2>
         {
-            daters.map(
+            daters?.map(
                 dater => {
 
                     return <>
@@ -82,12 +92,27 @@ export const UserList = () => {
                                 Likes: <LikesFinder dater={dater} />
 
                                 Dislikes: <DislikesFinder dater={dater} />
-                                <button onClick={() => {
-                                    fetch(`http://localhost:8088/daters?id={daterId}`, {
-                                        method: "DELETE",
+                                {
 
+                                }
+                                <button onClick={() => {
+                                    fetch(`http://localhost:8088/daters/${dater.id}`, {
+                                        method: "DELETE"
                                     })
-                                }} className="deleteButton" > Delete</button >
+                                        .then((newDaters) => {
+                                            setDaters(newDaters)
+                                        })
+                                        .then(() => {
+                                            fetch(`http://localhost:8088/daters?_expand=user`)
+                                                .then(res => res.json())
+                                                .then((newData) => {
+                                                    setDaters(newData)
+                                                })
+                                        })
+                                }
+                                } className="delete" > Delete</button>
+
+
                             </div>
                         </article>
                     </>

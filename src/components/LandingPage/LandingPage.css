@@ -1,0 +1,13 @@
+.landing {
+    display: flex;
+}
+
+.boxA {
+    flex-direction: column;
+}
+
+div {
+    flex-flow: column wrap;
+    justify-content: center;
+    background-color: aquamarine;
+}

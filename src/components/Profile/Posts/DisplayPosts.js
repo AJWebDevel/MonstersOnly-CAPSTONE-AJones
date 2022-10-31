@@ -10,7 +10,6 @@ export const DisplayPosts = () => {
 
 
 
-
     //get posts
     useEffect(
         () => {
@@ -27,23 +26,26 @@ export const DisplayPosts = () => {
     //function to give id of post clicked as id arg
 
 
-    const deletePost = () => {
-        return fetch(`http://localhost:8088/posts?userId=${daterId}`), {
-            method: "DELETE",
-        }
-    }
-
 
     return <> {posts.map(
         (post) => {
-            const postDelete = deletePost()
+
             return <div>
                 <div>{post?.user?.fullName} said...</div>
                 <div className="postContent">{post.content}</div>
-                {(post.userId === monsterUserObj.id) ?
-                    (<button onClick={() => deletePost()}>Delete Post</button>)
-                    : (<></>)
-                }
+                {/* {deletePostButton(post)} */}
+                <button onClick={() => {
+                    fetch(`http://localhost:8088/posts/${post.id}`, {
+                        method: "DELETE"
+                    })
+                        .then(() => {
+                            fetch(`http://localhost:8088/posts?_expand=user&userId=${daterId}`)
+                                .then(res => res.json())
+                                .then((newData) => {
+                                    setPosts(newData)
+                                })
+                        })
+                }} className="delete">Delete</button>
 
 
             </div>
