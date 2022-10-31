@@ -8,27 +8,42 @@ export const Register = (props) => {
         fullName: "",
         isStaff: false
     })
+    const [dater, setDater] = useState({
+        userId: customer.id,
+        username: "",
+        age: 0,
+        location: "",
+        imgURL: ""
+    })
     let navigate = useNavigate()
 
-    const registerNewUser = () => {
-        return fetch("http://localhost:8088/users", {
+    const registerNewUser = async () => {
+        await fetch("http://localhost:8088/users", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(customer)
-        })
-            .then(res => res.json())
-            .then(createdUser => {
-                if (createdUser.hasOwnProperty("id")) {
-                    localStorage.setItem("monster_user", JSON.stringify({
-                        id: createdUser.id,
-                        isAdmin: createdUser.isAdmin
-                    }))
-
-                    navigate("/")
-                }
+        }).then(res => res.json()
+        ).then(createdUser => {
+            if (createdUser.hasOwnProperty("id")) {
+                localStorage.setItem("monster_user", JSON.stringify({
+                    id: createdUser.id,
+                    isAdmin: createdUser.isAdmin
+                }))
+            }
+        },
+            await fetch("http://localhost:8088/daters", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dater)
             })
+                .then(res => res.json())
+
+
+                .then(navigate("/")))
     }
 
     const handleRegister = (e) => {
@@ -52,6 +67,11 @@ export const Register = (props) => {
         copy[evt.target.id] = evt.target.value
         setCustomer(copy)
     }
+    const updateDater = (evt) => {
+        const copy = { ...dater }
+        copy[evt.target.id] = evt.target.value
+        setDater(copy)
+    }
 
     return (
         <main style={{ textAlign: "center" }}>
@@ -70,14 +90,30 @@ export const Register = (props) => {
                         placeholder="Email address" required />
                 </fieldset>
                 <fieldset>
-                    <input onChange={(evt) => {
-                        const copy = { ...customer }
-                        copy.isStaff = evt.target.checked
-                        setCustomer(copy)
-                    }}
-                        type="checkbox" id="isStaff" />
-                    <label htmlFor="email"> I am an employee </label>
+                    <label htmlFor="userName"> User Name </label>
+                    <input onChange={updateDater}
+                        type="username" id="username" className="form-control"
+                        placeholder="What would you like to be called?" required />
                 </fieldset>
+                <fieldset>
+                    <label htmlFor="age"> Age </label>
+                    <input onChange={updateDater}
+                        type="age" id="age" className="form-control"
+                        placeholder="How old are you?" required />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="location"> Location </label>
+                    <input onChange={updateDater}
+                        type="location" id="location" className="form-control"
+                        placeholder="Where do you live?" required />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="profilePicture"> Profile Picture </label>
+                    <input onChange={updateDater}
+                        type="profilePicture" id="profilePicture" className="form-control"
+                        placeholder="Paste Your Image URL here" required />
+                </fieldset>
+
                 <fieldset>
                     <button type="submit"> Register </button>
                 </fieldset>

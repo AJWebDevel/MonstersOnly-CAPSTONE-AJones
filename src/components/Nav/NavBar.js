@@ -1,5 +1,5 @@
 import { AdminNav } from "./AdminNav"
-import { DaterNav } from "./DaterNav"
+import { DaterNav } from "./daterNav"
 import "./NavBar.css"
 
 
