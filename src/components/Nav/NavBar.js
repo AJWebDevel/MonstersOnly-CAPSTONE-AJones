@@ -11,7 +11,9 @@ export const NavBar = () => {
     const monsterUserObj = JSON.parse(localMonsterUser)
 
     if (monsterUserObj.isAdmin) {
-        return <AdminNav />
+        return <>
+            <AdminNav />
+        </>
     }
     else {
         return <DaterNav />

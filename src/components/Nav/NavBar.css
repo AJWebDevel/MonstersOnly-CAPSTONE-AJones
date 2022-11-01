@@ -1,3 +1,13 @@
 nav {
-    display: flex;
+    display: inline-block;
+}
+
+.navbar {
+
+    color: white;
+
+}
+
+li {
+    flex-direction: row;
 }

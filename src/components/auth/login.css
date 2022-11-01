@@ -51,7 +51,7 @@ fieldset {
     z-index: 1;
     min-height: 25rem;
     min-width: 45rem;
-    background-color: hsla(0, 0%, 100%, 0.40);
+    background-color: #8AC926;
     background-blend-mode: overlay;
     background-repeat: no-repeat;
 }
@@ -59,4 +59,9 @@ fieldset {
 .button--close {
     position: relative;
     bottom: -2rem;
+}
+
+form {
+    border-radius: 12px;
+    margin: 10px
 }

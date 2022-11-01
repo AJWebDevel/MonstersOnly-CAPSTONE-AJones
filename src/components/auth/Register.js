@@ -3,13 +3,17 @@ import { useNavigate } from "react-router-dom"
 import "./login.css"
 
 export const Register = (props) => {
-    const [customer, setCustomer] = useState({
+    const localMonsterUser = localStorage.getItem("monster_user")
+    const monsterUserObj = JSON.parse(localMonsterUser)
+
+    const [user, setUser] = useState({
         email: "",
         fullName: "",
-        isStaff: false
+        isAdmin: false
     })
     const [dater, setDater] = useState({
-        userId: customer.id,
+        //dot notation? empty string?
+        userId: 0,
         username: "",
         age: 0,
         location: "",
@@ -17,38 +21,60 @@ export const Register = (props) => {
     })
     let navigate = useNavigate()
 
-    const registerNewUser = async () => {
-        await fetch("http://localhost:8088/users", {
+    const registerUserAndDater = () => {
+        fetch("http://localhost:8088/users", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(customer)
-        }).then(res => res.json()
-        ).then(createdUser => {
-            if (createdUser.hasOwnProperty("id")) {
-                localStorage.setItem("monster_user", JSON.stringify({
-                    id: createdUser.id,
-                    isAdmin: createdUser.isAdmin
-                }))
-            }
-        },
-            await fetch("http://localhost:8088/daters", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(dater)
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(createdPerson => {
+                fetch("http://localhost:8088/daters", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        ...dater,
+                        userId: createdPerson.id
+                    })
+                })
             })
-                .then(res => res.json())
+            .then(res => res.json())
+            .then(dater.id = user.id)
+            .then(createdUser => {
+                localStorage.setItem("monster_user", JSON.stringify({
+                    id: createdUser.id
+                }))
+            })
 
-
-                .then(navigate("/")))
     }
+
+
+
+
+    // const registerNewUser = async () => {
+    //     await fetch("http://localhost:8088/users", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify(user)
+    //     }).then(res => res.json())
+    // .then(createdUser => {
+    //     localStorage.setItem("monster_user", JSON.stringify({
+    //         id: createdUser.id
+    //     }))
+    //             dater.id = createdUser.id
+
+
+
 
     const handleRegister = (e) => {
         e.preventDefault()
-        return fetch(`http://localhost:8088/users?email=${customer.email}`)
+        return fetch(`http://localhost:8088/users?email=${user.email}`)
             .then(res => res.json())
             .then(response => {
                 if (response.length > 0) {
@@ -57,15 +83,17 @@ export const Register = (props) => {
                 }
                 else {
                     // Good email, create user.
-                    registerNewUser()
+                    registerUserAndDater()
+
+                    navigate("/")
                 }
             })
     }
 
-    const updateCustomer = (evt) => {
-        const copy = { ...customer }
+    const updateUser = (evt) => {
+        const copy = { ...user }
         copy[evt.target.id] = evt.target.value
-        setCustomer(copy)
+        setUser(copy)
     }
     const updateDater = (evt) => {
         const copy = { ...dater }
@@ -79,13 +107,13 @@ export const Register = (props) => {
                 <h1 className="h3 mb-3 font-weight-normal">Please Register for Monsters Only Dating Service</h1>
                 <fieldset>
                     <label htmlFor="fullName"> Full Name </label>
-                    <input onChange={updateCustomer}
+                    <input onChange={updateUser}
                         type="text" id="fullName" className="form-control"
                         placeholder="Enter your name" required autoFocus />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="email"> Email address </label>
-                    <input onChange={updateCustomer}
+                    <input onChange={updateUser}
                         type="email" id="email" className="form-control"
                         placeholder="Email address" required />
                 </fieldset>
@@ -108,9 +136,9 @@ export const Register = (props) => {
                         placeholder="Where do you live?" required />
                 </fieldset>
                 <fieldset>
-                    <label htmlFor="profilePicture"> Profile Picture </label>
+                    <label htmlFor="imgURL"> Profile Picture </label>
                     <input onChange={updateDater}
-                        type="profilePicture" id="profilePicture" className="form-control"
+                        type="imgURL" id="imgURL" className="form-control"
                         placeholder="Paste Your Image URL here" required />
                 </fieldset>
 
