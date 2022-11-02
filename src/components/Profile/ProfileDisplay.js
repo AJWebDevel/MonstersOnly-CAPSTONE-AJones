@@ -38,7 +38,7 @@ export const ProfileDisplay = () => {
                 (dater) => {
                     if (daterId !== monsterUserObj.id) {
 
-                        return (<section className="customer">
+                        return (<section key={dater.id} className="customer">
                             <header>{dater?.user?.fullName}</header>
                             <footer>Age: {dater.age}</footer>
                         </section>)
@@ -56,7 +56,7 @@ export const ProfileDisplay = () => {
 
         }
         <button onClick={() => {
-            navigate("Profile/:daterId")
+            navigate("EditProfile")
         }}>Edit Profile </button>
     </div>)
 }

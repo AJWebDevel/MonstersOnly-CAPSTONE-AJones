@@ -12,11 +12,18 @@ export const NavBar = () => {
 
     if (monsterUserObj.isAdmin) {
         return <>
+
+
             <AdminNav />
         </>
     }
     else {
-        return <DaterNav />
+        return <>
+            <h1>Monsters Only</h1>
+            <div>You don't have to be lonely...</div>
+
+            <DaterNav />
+        </>
 
     }
 

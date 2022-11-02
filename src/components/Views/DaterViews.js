@@ -12,8 +12,6 @@ export const DaterViews = () => {
         <Routes>
             <Route path="/" element={
                 <>
-                    <h1>Monsters Only</h1>
-                    <div>You don't have to be lonely...</div>
 
                     <Outlet />
                 </>
@@ -21,7 +19,7 @@ export const DaterViews = () => {
 
                 <Route path="Matches/Profile/:daterId" element={<ProfileContainer />} />
                 <Route path="Profile/:daterId" element={<ProfileContainer />} />
-                <Route path="EditProfile" element={<EditProfile />} />
+                <Route path="Profile/:daterId/EditProfile" element={<EditProfile />} />
                 <Route path="Matches" element={<Matches />} />
             </Route>
         </Routes>

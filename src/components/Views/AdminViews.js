@@ -8,8 +8,6 @@ export const AdminViews = () => {
         <Routes>
             <Route path="/" element={
                 <>
-                    <h1>Monsters Only</h1>
-                    <div>You don't have to be lonely...</div>
 
                     <Outlet />
                 </>

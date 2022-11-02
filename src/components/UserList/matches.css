@@ -1,0 +1,45 @@
+img {
+    height: 100px;
+    width: auto;
+    border-radius: 12px;
+
+}
+
+article {
+    display: inline-flexbox;
+}
+
+.individualDater {
+    background-color: #F8884C;
+    margin: 10px;
+    border-radius: 12px;
+}
+
+
+
+
+main {
+    display: grid;
+    background-color: #8AC926;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+}
+
+p {
+    color: black;
+}
+
+.daterName {
+    color: black;
+}
+
+.imgBackground {
+    background-color: #8AC926;
+    align-self: center;
+}
+
+body {
+    background-color: #262626;
+}

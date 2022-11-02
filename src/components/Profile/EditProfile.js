@@ -6,22 +6,22 @@ export const EditProfile = () => {
     const localMonsterUser = localStorage.getItem("monster_user")
     const monsterUserObject = JSON.parse(localMonsterUser)
 
-    const [dater, update] = useState({
+    let [dater, update] = useState({
         username: "",
         age: "",
         location: ""
         //blueprint
     })
-    const [like, setLike] = useState({
+    let [like, setLike] = useState({
         userId: monsterUserObject.id,
         topicId: 0
     })
 
-    const [dislike, setDislike] = useState({
+    let [dislike, setDislike] = useState({
         userId: monsterUserObject.id,
         topicId: 0
     })
-    const [topics, setTopics] = useState([])
+    let [topics, setTopics] = useState([])
 
 
     let navigate = useNavigate
@@ -32,7 +32,7 @@ export const EditProfile = () => {
             fetch(`http://localhost:8088/daters?userId=${monsterUserObject.id}`)
                 .then((res) => res.json())
                 .then((data) => {
-                    const daterObj = data[0]
+                    let daterObj = data[0]
                     update(daterObj)
                 })
         },
@@ -104,8 +104,8 @@ export const EditProfile = () => {
     return (
         <form className="updateDaterForm">
             <h2 className="DaterForm__title">Tell Us About Yourself!</h2>
-            <fieldset>
-                <div className="form-group">
+            <fieldset >
+                <div key={dater.username} className="form-group">
                     <label htmlFor="description">User Name:</label>
                     <input
                         required autoFocus
@@ -115,15 +115,15 @@ export const EditProfile = () => {
                         value={dater.username}
                         onChange={
                             (event) => {
-                                const copy = { ...dater }
+                                let copy = { ...dater }
                                 copy.username = event.target.value
                                 update(copy)
                             }
                         } />
                 </div>
             </fieldset>
-            <fieldset>
-                <div className="form-group">
+            <fieldset >
+                <div key={dater.username} className="form-group">
                     <label htmlFor="age">Age:</label>
                     <input
                         required autoFocus
@@ -133,15 +133,15 @@ export const EditProfile = () => {
                         value={dater.age}
                         onChange={
                             (event) => {
-                                const copy = { ...dater }
+                                let copy = { ...dater }
                                 copy.age = parseInt(event.target.value)
                                 update(copy)
                             }
                         } />
                 </div>
             </fieldset>
-            <fieldset>
-                <div className="form-group">
+            <fieldset >
+                <div key={dater.location} className="form-group">
                     <label htmlFor="location">Location:</label>
                     <input
                         required autoFocus
@@ -151,15 +151,15 @@ export const EditProfile = () => {
                         value={dater.location}
                         onChange={
                             (event) => {
-                                const copy = { ...dater }
+                                let copy = { ...dater }
                                 copy.location = event.target.value
                                 update(copy)
                             }
                         } />
                 </div>
             </fieldset>
-            <fieldset>
-                <div className="form-group">
+            <fieldset >
+                <div key={dater.imgURL} className="form-group">
                     <label htmlFor="description">Profile Picture:</label>
                     <input
                         required autoFocus
@@ -169,7 +169,7 @@ export const EditProfile = () => {
                         value={dater.imgURL}
                         onChange={
                             (event) => {
-                                const copy = { ...dater }
+                                let copy = { ...dater }
                                 copy.imgURL = event.target.value
                                 update(copy)
                             }
@@ -181,46 +181,48 @@ export const EditProfile = () => {
                     <h3>Choose Your First Like </h3>
                     {topics.map(
                         (topic) => {
-                            return (<>
+                            return (<div key={topic.id}>
                                 <input type="checkbox" value={topic.id} name="{topic.text}"
                                     onChange={
                                         (event) => {
-                                            const copy = { ...like }
+                                            let copy = { ...like }
                                             copy.topicId = event.target.value
                                             setLike(copy)
                                         }}
-                                    onClick={
+                                    onClick={() =>
                                         handleLikeTopicChanges()
                                     } />
                                 <label htmlFor="like">{topic.text}</label>
-                            </>)
+                            </div>)
                         })}
                 </div>
             </fieldset>
 
-            <fieldset>
+            <fieldset >
                 <div className="form-group">
                     <h3>Choose Your First Dislike </h3>
                     {topics.map(
                         (topic) => {
-                            return (<>
+                            return (<div key={topic.id}>
                                 <input type="checkbox" value={topic.id} name="{topic.text}"
                                     onChange={
                                         (event) => {
-                                            const copy = { ...dislike }
+                                            let copy = { ...dislike }
                                             copy.topicId = event.target.value
                                             setDislike(copy)
                                         }}
                                 />
                                 <label htmlFor="dislike">{topic.text}</label>
-                            </>)
+                            </div>)
                         })}
                 </div>
             </fieldset>
             <button
-                onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
+                onClick={(event) => {
+                    handleSaveButtonClick(event)
+                }}
                 className="btn btn-primary">
-                Save & Submit
+                Save and Submit
             </button>
         </form >
     )

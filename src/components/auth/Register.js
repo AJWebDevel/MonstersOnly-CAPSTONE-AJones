@@ -12,7 +12,6 @@ export const Register = (props) => {
         isAdmin: false
     })
     const [dater, setDater] = useState({
-        //dot notation? empty string?
         userId: 0,
         username: "",
         age: 0,
@@ -21,6 +20,7 @@ export const Register = (props) => {
     })
     let navigate = useNavigate()
 
+    //function to post both user and dater
     const registerUserAndDater = () => {
         fetch("http://localhost:8088/users", {
             method: "POST",
@@ -31,7 +31,7 @@ export const Register = (props) => {
         })
             .then(res => res.json())
             .then(createdPerson => {
-                fetch("http://localhost:8088/daters", {
+                return fetch("http://localhost:8088/daters", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -42,32 +42,11 @@ export const Register = (props) => {
                     })
                 })
             })
-            .then(res => res.json())
-            .then(dater.id = user.id)
-            .then(createdUser => {
-                localStorage.setItem("monster_user", JSON.stringify({
-                    id: createdUser.id
-                }))
-            })
 
     }
 
 
 
-
-    // const registerNewUser = async () => {
-    //     await fetch("http://localhost:8088/users", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify(user)
-    //     }).then(res => res.json())
-    // .then(createdUser => {
-    //     localStorage.setItem("monster_user", JSON.stringify({
-    //         id: createdUser.id
-    //     }))
-    //             dater.id = createdUser.id
 
 
 
@@ -90,6 +69,7 @@ export const Register = (props) => {
             })
     }
 
+    //functions to update user&dater based on user input
     const updateUser = (evt) => {
         const copy = { ...user }
         copy[evt.target.id] = evt.target.value

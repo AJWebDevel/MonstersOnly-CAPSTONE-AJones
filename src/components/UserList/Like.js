@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 
 
-export const LikesFinder = ({ dater }) => {
+export const LikesFinder = ({ dater, likes, likesWithTopic }) => {
     const [filteredLikes, setFilteredLikes] = useState([])
     useEffect(
         () => {
@@ -19,7 +19,7 @@ export const LikesFinder = ({ dater }) => {
         {
             filteredLikes.map(
                 (like) => {
-                    return <div> {like?.topic?.text} </div>
+                    return <p key={like.id}> {like?.topic?.text} </p>
                 }
             )
         }

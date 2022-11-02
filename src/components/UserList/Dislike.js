@@ -19,7 +19,7 @@ export const DislikesFinder = ({ dater }) => {
         {
             filteredDislikes.map(
                 (dislike) => {
-                    return <div> {dislike?.topic?.text} </div>
+                    return <p key={dislike.id}> {dislike?.topic?.text} </p>
                 }
             )
         }

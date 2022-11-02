@@ -22,15 +22,14 @@ export const DisplayPosts = () => {
         []
     )
 
-    //delete posts takes arg >id of post to be deleted 
-    //function to give id of post clicked as id arg
 
 
 
+    //return all posts from selected user
     return <> {posts.map(
         (post) => {
 
-            return <div>
+            return <div key={post.id}>
                 <div>{post?.user?.fullName} said...</div>
                 <div className="postContent">{post.content}</div>
                 {/* {deletePostButton(post)} */}
