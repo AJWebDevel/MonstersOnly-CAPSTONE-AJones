@@ -1,4 +1,4 @@
-import { AdminNav } from "./AdminNav"
+import { AdminNav } from "./adminNav"
 import { DaterNav } from "./daterNav"
 import "./NavBar.css"
 

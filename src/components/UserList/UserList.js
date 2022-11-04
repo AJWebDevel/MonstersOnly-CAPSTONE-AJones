@@ -2,7 +2,7 @@ import { useEffect, useState, useSyncExternalStore } from "react"
 import { Link, useFetcher } from "react-router-dom"
 import { DislikesFinder } from "./Dislike"
 import { LikesFinder } from "./Like"
-import ".//matches.css"
+import "./matches.css"
 
 export const UserList = () => {
     const [daters, setDaters] = useState([])
