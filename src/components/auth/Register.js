@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "./login.css"
+
 
 export const Register = (props) => {
     const localMonsterUser = localStorage.getItem("monster_user")
@@ -12,15 +13,39 @@ export const Register = (props) => {
         isAdmin: false
     })
     const [dater, setDater] = useState({
-        //dot notation? empty string?
         userId: 0,
         username: "",
         age: 0,
         location: "",
         imgURL: ""
     })
+
+    const [like, setLike] = useState({
+        userId: 0,
+        topicId: 0
+    })
+    const [dislike, setDislike] = useState({
+        userId: 0,
+        topicId: 0
+    })
+    let [topics, setTopics] = useState([])
+
+
     let navigate = useNavigate()
 
+    useEffect(
+        () => {
+
+            fetch(`http://localhost:8088/topics`)
+                .then((res) => res.json())
+                .then((topicsArray) => {
+                    setTopics(topicsArray)
+                })
+        },
+
+        []
+    )
+    //function to post both user and dater
     const registerUserAndDater = () => {
         fetch("http://localhost:8088/users", {
             method: "POST",
@@ -30,8 +55,8 @@ export const Register = (props) => {
             body: JSON.stringify(user)
         })
             .then(res => res.json())
-            .then(createdPerson => {
-                fetch("http://localhost:8088/daters", {
+            .then((createdPerson) => {
+                return fetch("http://localhost:8088/daters", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -43,31 +68,31 @@ export const Register = (props) => {
                 })
             })
             .then(res => res.json())
-            .then(dater.id = user.id)
-            .then(createdUser => {
-                localStorage.setItem("monster_user", JSON.stringify({
-                    id: createdUser.id
-                }))
-            })
+            .then((daterObj) => {
+                fetch(`http://localhost:8088/likes`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        ...like,
+                        userId: daterObj.userId
+                    })
+                })
 
+                fetch(`http://localhost:8088/dislikes`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        ...dislike,
+                        userId: daterObj.userId
+                    })
+                })
+            })
     }
 
-
-
-
-    // const registerNewUser = async () => {
-    //     await fetch("http://localhost:8088/users", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify(user)
-    //     }).then(res => res.json())
-    // .then(createdUser => {
-    //     localStorage.setItem("monster_user", JSON.stringify({
-    //         id: createdUser.id
-    //     }))
-    //             dater.id = createdUser.id
 
 
 
@@ -90,6 +115,7 @@ export const Register = (props) => {
             })
     }
 
+    //functions to update user&dater based on user input
     const updateUser = (evt) => {
         const copy = { ...user }
         copy[evt.target.id] = evt.target.value
@@ -141,7 +167,49 @@ export const Register = (props) => {
                         type="imgURL" id="imgURL" className="form-control"
                         placeholder="Paste Your Image URL here" required />
                 </fieldset>
+                <fieldset>
+                    <div className="form-group">
+                        <h3>Choose Your Like </h3>
 
+                        <select name="likes"
+
+                            onChange={
+                                (event) => {
+                                    let copy = { ...like }
+                                    copy.topicId = parseInt(event.target.value)
+                                    setLike(copy)
+                                }}>
+                            <option value={like.topicId}>{like[0]?.topic?.text}</option>
+                            {topics.map(
+                                (topic) => {
+                                    return (<option key={`like--${topic.id}`} value={topic.id}>{topic.text}</option>)
+
+                                })}</select>
+
+                    </div>
+                </fieldset>
+                <fieldset >
+                    <div className="form-group">
+                        <h3>Choose Your Dislike </h3>
+                        <select name="Dislike"
+
+                            onChange={
+                                (event) => {
+                                    let copy = { ...dislike }
+                                    copy.topicId = parseInt(event.target.value)
+                                    setDislike(copy)
+
+                                }}>
+                            <option value={dislike.id} >{dislike[0]?.topic?.text}</option>
+                            {topics.map(
+                                (topic) => {
+                                    return <option key={`dislike--${topic.id}`} value={topic.id}>{topic.text}</option>
+
+                                })}
+
+                        </select>
+                    </div>
+                </fieldset>
                 <fieldset>
                     <button type="submit"> Register </button>
                 </fieldset>

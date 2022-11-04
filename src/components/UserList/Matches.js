@@ -3,6 +3,8 @@ import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { DislikesFinder } from "./Dislike"
 import { LikesFinder } from "./Like"
+import ".//matches.css"
+
 
 export const Matches = () => {
 
@@ -82,19 +84,18 @@ export const Matches = () => {
         {
             seenDaters.map(
                 dater => {
-                    return <>
-                        <article className="individualDater">
+                    return <div key={dater.id}>
+                        <article key={dater.id} className="individualDater">
                             <img src={dater.imgURL}
                                 alt="daterPhoto" className="daterImg" />
                             <h3><Link to={`Profile/${dater.userId}`}>{dater?.user?.fullName}</Link></h3>
-                            <div>
-                                Username: {dater.username}
-                                Age: {dater.age}
-                                Location: {dater.location}
-                                Likes: <LikesFinder dater={dater} />
+                            <div className="bioInfo">
+                                <p>Username: {dater.username}</p>
+                                <p>Age: {dater.age}</p>
+                                <p>Location: {dater.location}</p>
+                                <div>Likes: <LikesFinder dater={dater} /></div>
 
-
-                                Dislikes: <DislikesFinder dater={dater} />
+                                <div>Dislikes: <DislikesFinder dater={dater} /></div>
                             </div>
 
                             <button className="acceptButton" > Accept!</button >
@@ -102,7 +103,7 @@ export const Matches = () => {
 
 
                         </article>
-                    </>
+                    </div>
                 })
         }
     </div>

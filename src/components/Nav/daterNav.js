@@ -8,6 +8,7 @@ export const DaterNav = () => {
 
     return (
         <ul className="navbar">
+            <h3 className="title">Monsters Only</h3>
             <li className="navbar__item active">
                 <Link className="navbar__link" to={`/Profile/${monsterUserObj.id}`}>Profile</Link>
             </li>

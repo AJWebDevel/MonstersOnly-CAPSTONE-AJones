@@ -22,3 +22,4 @@ export const MonstersOnly = () => {
         } />
     </Routes>
 }
+//put footer bar under app views
