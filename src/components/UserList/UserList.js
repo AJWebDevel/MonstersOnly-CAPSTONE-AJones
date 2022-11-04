@@ -94,9 +94,7 @@ export const UserList = () => {
                                     fetch(`http://localhost:8088/daters/${dater.id}`, {
                                         method: "DELETE"
                                     })
-                                        .then((newDaters) => {
-                                            setDaters(newDaters)
-                                        })
+
                                         .then(() => {
                                             fetch(`http://localhost:8088/daters?_expand=user`)
                                                 .then(res => res.json())

@@ -1,6 +1,8 @@
 .h1,
 h1 {
     font-size: 2.5rem;
+    color: #1E1E1E;
+
 }
 
 fieldset {
@@ -44,7 +46,12 @@ fieldset {
 
 .container--login {
     text-align: center;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
 }
+
 
 .form--login {
     background-position-x: right;
@@ -61,7 +68,8 @@ fieldset {
     bottom: -2rem;
 }
 
-form {
-    border-radius: 12px;
-    margin: 10px
+.link--register {
+    font-size: larger;
+    clear: both;
+    position: relative;
 }

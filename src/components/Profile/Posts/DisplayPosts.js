@@ -28,29 +28,34 @@ export const DisplayPosts = () => {
     //return all posts from selected user
     return <> {posts.map(
         (post) => {
+            if (parseInt(daterId) === monsterUserObj.id) {
+                return <div key={post.id}>
+                    <div>{post?.user?.fullName} said...</div>
+                    <div className="postContent">{post.content}</div>
 
-            return <div key={post.id}>
-                <div>{post?.user?.fullName} said...</div>
-                <div className="postContent">{post.content}</div>
-                {/* {deletePostButton(post)} */}
-                <button onClick={() => {
-                    fetch(`http://localhost:8088/posts/${post.id}`, {
-                        method: "DELETE"
-                    })
-                        .then(() => {
-                            fetch(`http://localhost:8088/posts?_expand=user&userId=${daterId}`)
-                                .then(res => res.json())
-                                .then((newData) => {
-                                    setPosts(newData)
-                                })
+                    <button onClick={() => {
+                        fetch(`http://localhost:8088/posts/${post.id}`, {
+                            method: "DELETE"
                         })
-                }} className="delete">Delete</button>
+                            .then(() => {
+                                fetch(`http://localhost:8088/posts?_expand=user&userId=${daterId}`)
+                                    .then(res => res.json())
+                                    .then((newData) => {
+                                        setPosts(newData)
+                                    })
+                            })
+                    }} className="delete">Delete</button>
 
 
-            </div>
 
-        }
-    )}</>
+                </div>
+            } else {
+                return <div key={post.id}>
+                    <div>{post?.user?.fullName} said...</div>
+                    <div className="postContent">{post.content}</div>
+                </div>
+            }
+        })}</>
 
 
 }

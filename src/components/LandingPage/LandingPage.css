@@ -3,11 +3,11 @@
 }
 
 .boxB {
-    position: absolute;
+
     width: 408px;
     height: 524px;
-    left: 513px;
-    top: 329px;
+    left: 384px;
+    top: 175px;
 
     background: #F8884C;
     border-radius: 12px;
@@ -16,6 +16,7 @@
 div {
     flex-flow: column wrap;
     justify-content: center;
+    justify-self: center;
 
 }
 

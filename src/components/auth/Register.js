@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "./login.css"
+
 
 export const Register = (props) => {
     const localMonsterUser = localStorage.getItem("monster_user")
@@ -18,8 +19,32 @@ export const Register = (props) => {
         location: "",
         imgURL: ""
     })
+
+    const [like, setLike] = useState({
+        userId: 0,
+        topicId: 0
+    })
+    const [dislike, setDislike] = useState({
+        userId: 0,
+        topicId: 0
+    })
+    let [topics, setTopics] = useState([])
+
+
     let navigate = useNavigate()
 
+    useEffect(
+        () => {
+
+            fetch(`http://localhost:8088/topics`)
+                .then((res) => res.json())
+                .then((topicsArray) => {
+                    setTopics(topicsArray)
+                })
+        },
+
+        []
+    )
     //function to post both user and dater
     const registerUserAndDater = () => {
         fetch("http://localhost:8088/users", {
@@ -30,7 +55,7 @@ export const Register = (props) => {
             body: JSON.stringify(user)
         })
             .then(res => res.json())
-            .then(createdPerson => {
+            .then((createdPerson) => {
                 return fetch("http://localhost:8088/daters", {
                     method: "POST",
                     headers: {
@@ -42,10 +67,31 @@ export const Register = (props) => {
                     })
                 })
             })
+            .then(res => res.json())
+            .then((daterObj) => {
+                fetch(`http://localhost:8088/likes`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        ...like,
+                        userId: daterObj.userId
+                    })
+                })
 
+                fetch(`http://localhost:8088/dislikes`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        ...dislike,
+                        userId: daterObj.userId
+                    })
+                })
+            })
     }
-
-
 
 
 
@@ -121,7 +167,49 @@ export const Register = (props) => {
                         type="imgURL" id="imgURL" className="form-control"
                         placeholder="Paste Your Image URL here" required />
                 </fieldset>
+                <fieldset>
+                    <div className="form-group">
+                        <h3>Choose Your Like </h3>
 
+                        <select name="likes"
+
+                            onChange={
+                                (event) => {
+                                    let copy = { ...like }
+                                    copy.topicId = parseInt(event.target.value)
+                                    setLike(copy)
+                                }}>
+                            <option value={like.topicId}>{like[0]?.topic?.text}</option>
+                            {topics.map(
+                                (topic) => {
+                                    return (<option key={`like--${topic.id}`} value={topic.id}>{topic.text}</option>)
+
+                                })}</select>
+
+                    </div>
+                </fieldset>
+                <fieldset >
+                    <div className="form-group">
+                        <h3>Choose Your Dislike </h3>
+                        <select name="Dislike"
+
+                            onChange={
+                                (event) => {
+                                    let copy = { ...dislike }
+                                    copy.topicId = parseInt(event.target.value)
+                                    setDislike(copy)
+
+                                }}>
+                            <option value={dislike.id} >{dislike[0]?.topic?.text}</option>
+                            {topics.map(
+                                (topic) => {
+                                    return <option key={`dislike--${topic.id}`} value={topic.id}>{topic.text}</option>
+
+                                })}
+
+                        </select>
+                    </div>
+                </fieldset>
                 <fieldset>
                     <button type="submit"> Register </button>
                 </fieldset>
