@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import "./login.css"
+
 
 
 export const Register = (props) => {
@@ -110,7 +110,7 @@ export const Register = (props) => {
                     // Good email, create user.
                     registerUserAndDater()
 
-                    navigate("/")
+                    navigate("/LandingPage")
                 }
             })
     }
@@ -127,52 +127,62 @@ export const Register = (props) => {
         setDater(copy)
     }
 
-    return (
-        <main style={{ textAlign: "center" }}>
-            <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Please Register for Monsters Only Dating Service</h1>
+    return (<>
+        <nav className="bg-Monster-Black-100   sticky top-0 z-50 text-white w-screen">
+
+            <div className="float-left">
+                <h3 className="content-center">Monsters Only</h3>
+            </div>
+            <div className="float-right m-3">
+                <h4 className="content-center ml-10">Human Folks Just Don't Get It!</h4>
+            </div>
+        </nav>
+
+        <div className="flex items-center justify-center text-center h-screen">
+            <form className="form--login rounded m-10 p-20  border-4 border-Monster-Black-100 bg-Monster-Green" onSubmit={handleRegister}>
+                <h1 className="text-2xl mb-3 -mt-10 underline font-semibold ">Please Register for Monsters Only Dating Service</h1>
                 <fieldset>
                     <label htmlFor="fullName"> Full Name </label>
                     <input onChange={updateUser}
-                        type="text" id="fullName" className="form-control"
+                        type="text" id="fullName" className="form-control  text-grey-darker text-sm  mb-2 rounded p-1 m-2"
                         placeholder="Enter your name" required autoFocus />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="email"> Email address </label>
                     <input onChange={updateUser}
-                        type="email" id="email" className="form-control"
+                        type="email" id="email" className="form-control text-grey-darker text-sm  mb-2 rounded p-1 m-2"
                         placeholder="Email address" required />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="userName"> User Name </label>
                     <input onChange={updateDater}
-                        type="username" id="username" className="form-control"
+                        type="username" id="username" className="form-control  text-grey-darker text-sm  mb-2 rounded p-1 m-2"
                         placeholder="What would you like to be called?" required />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="age"> Age </label>
                     <input onChange={updateDater}
-                        type="age" id="age" className="form-control"
+                        type="age" id="age" className="form-control text-grey-darker text-sm  mb-2 rounded p-1 m-2"
                         placeholder="How old are you?" required />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="location"> Location </label>
                     <input onChange={updateDater}
-                        type="location" id="location" className="form-control"
+                        type="location" id="location" className="form-control  text-grey-darker text-sm  mb-2 rounded p-1 m-2"
                         placeholder="Where do you live?" required />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="imgURL"> Profile Picture </label>
                     <input onChange={updateDater}
-                        type="imgURL" id="imgURL" className="form-control"
+                        type="imgURL" id="imgURL" className="form-control text-grey-darker text-sm  mb-2 rounded p-1 m-2"
                         placeholder="Paste Your Image URL here" required />
                 </fieldset>
                 <fieldset>
-                    <div className="form-group">
-                        <h3>Choose Your Like </h3>
+                    <div className="form-group m-2">
+                        <h1>Choose Your Like </h1>
 
                         <select name="likes"
-
+                            className="rounded  p-1"
                             onChange={
                                 (event) => {
                                     let copy = { ...like }
@@ -189,10 +199,10 @@ export const Register = (props) => {
                     </div>
                 </fieldset>
                 <fieldset >
-                    <div className="form-group">
-                        <h3>Choose Your Dislike </h3>
+                    <div className="form-group m-2">
+                        <h1>Choose Your Dislike </h1>
                         <select name="Dislike"
-
+                            className="rounded  p-1"
                             onChange={
                                 (event) => {
                                     let copy = { ...dislike }
@@ -211,10 +221,11 @@ export const Register = (props) => {
                     </div>
                 </fieldset>
                 <fieldset>
-                    <button type="submit"> Register </button>
+                    <button className="bg-transparent   hover:font-semibold hover:underline py-.5 px-2 m-3 mt-10   border border-black hover:border-transparent rounded" type="submit"> Register </button>
                 </fieldset>
             </form>
-        </main>
+        </div>
+    </>
     )
 }
 

@@ -1,9 +1,9 @@
 
 import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { DislikesFinder } from "./Dislike"
 import { LikesFinder } from "./Like"
-import ".//matches.css"
+
 
 
 export const Matches = () => {
@@ -71,6 +71,7 @@ export const Matches = () => {
         []
     )
 
+    const navigate = useNavigate()
 
     const seenDaters =
         daters.filter((dater) => {
@@ -79,33 +80,39 @@ export const Matches = () => {
         })
 
 
-    return (<div className="datingUsers">
-        <h2>Potential Matches</h2>
-        {
-            seenDaters.map(
-                dater => {
-                    return <div key={dater.id}>
-                        <article key={dater.id} className="individualDater">
-                            <img src={dater.imgURL}
-                                alt="daterPhoto" className="daterImg" />
-                            <h3><Link to={`Profile/${dater.userId}`}>{dater?.user?.fullName}</Link></h3>
-                            <div className="bioInfo">
-                                <p>Username: {dater.username}</p>
-                                <p>Age: {dater.age}</p>
-                                <p>Location: {dater.location}</p>
-                                <div>Likes: <LikesFinder dater={dater} /></div>
+    return (<div className="bg-Monster-Green grid-cols-3 text-Monster-Black-100 m-20 p-5 rounded">
+        <h2 className=" text-center  font-semibold underline text-4xl m-6 p-4 ">Potential Matches</h2>
+        <main className="">
+            {
+                seenDaters.map(
+                    dater => {
+                        return <div className="bg-Monster-Orange rounded  shadow-md w-3/4 h-full" key={dater.id}>
+                            <article key={dater.id} className="individualDater">
+                                <div className="flex  items-center justify-center">
+                                    <img src={dater.imgURL}
+                                        alt="daterPhoto" className="rounded m-5 shadow-lg" />
+                                </div>
+                                <div className=" m-4 ">
+                                    <h3 className="text-center  hover:underline"><Link to={`Profile/${dater.userId}`}>{dater?.user?.fullName}</Link></h3>
+                                    <div className="bioInfo">
+                                        <p>Username: {dater.username}</p>
+                                        <p>Age: {dater.age}</p>
+                                        <p>Location: {dater.location}</p>
+                                        <div>Likes: <LikesFinder dater={dater} /></div>
 
-                                <div>Dislikes: <DislikesFinder dater={dater} /></div>
-                            </div>
+                                        <div>Dislikes: <DislikesFinder dater={dater} /></div>
+                                    </div>
+                                </div>
+                                <div className="flex items-center justify-center">
+                                    <button onClick={() => { navigate(`Profile/${dater.userId}`) }}
+                                        className="acceptButton bg-transparent  hover:font-semibold hover:text-Monster-Green py-.5 px-2 m-3  border border-black hover:border-transparent rounded" > Accept!</button >
+                                </div>
 
-                            <button className="acceptButton" > Accept!</button >
-                            <button className="rejectButton" > Reject!</button >
-
-
-                        </article>
-                    </div>
-                })
-        }
+                            </article>
+                        </div>
+                    })
+            }
+        </main>
     </div>
     )
 }

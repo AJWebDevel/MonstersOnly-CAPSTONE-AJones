@@ -19,8 +19,6 @@ export const NavBar = () => {
     }
     else {
         return <>
-            <h1>Monsters Only</h1>
-            <div>You don't have to be lonely...</div>
 
             <DaterNav />
         </>
