@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
-import "./login.css"
+
 
 export const Login = () => {
     const [email, set] = useState("goldilocks@porridge.bowl")
@@ -20,7 +20,7 @@ export const Login = () => {
                         isAdmin: user.isAdmin
                     }))
 
-                    navigate("/")
+                    navigate("/LandingPage")
                 }
                 else {
                     window.alert("Invalid login")
@@ -28,32 +28,45 @@ export const Login = () => {
             })
     }
 
-    return (
-        <main className="container--login">
-            <section>
-                <form className="form--login" onSubmit={handleLogin}>
-                    <h1>Monsters Only</h1>
-                    <h2>Please sign in</h2>
-                    <fieldset>
-                        <label htmlFor="inputEmail"> Email address </label>
+    return (<>
+
+        <nav className="bg-Monster-Black-100   sticky top-0 z-50 text-white w-screen">
+
+            <div className="float-left">
+                <h3 className="content-center">Monsters Only</h3>
+            </div>
+            <div className="float-right m-3">
+                <h4 className="content-center">Human Folks Just Don't Get It!</h4>
+            </div>
+        </nav>
+
+
+        <main className="container--login border-Monster-Black-100 border-4 bg-Monster-Green flex flex-col items-center justify-center m-20 rounded shadow-md">
+            <section className="    ">
+                <form className=" flow-route flex flex-col " onSubmit={handleLogin}>
+                    <h1 className="text-4xl text-center underline m-4">Monsters Only</h1>
+
+                    <fieldset className="text-center">
+                        <h4 className="font-bold mb-5">Please sign in</h4>
+                        <label htmlFor="inputEmail" className="block text-grey-darker text-sm  mb-2"> Email address </label>
                         <input type="email"
                             value={email}
                             onChange={evt => set(evt.target.value)}
-                            className="form-control"
+                            className="shadow  border rounded w-full mb-2 p-2 text-grey-darker "
                             placeholder="Email address"
                             required autoFocus />
                     </fieldset>
                     <fieldset>
-                        <button type="submit">
+                        <button type="submit" className="bg-transparent float-right  hover:font-semibold hover:underline py-.5 px-2 m-3   border border-black hover:border-transparent rounded">
                             Sign in
                         </button>
                     </fieldset>
                 </form>
             </section>
-            <section className="link--register">
-                <Link to="/register">Not a member yet?</Link>
-            </section>
+
+            <Link to="/register" className="m-8  bg-transparent  hover:font-semibold hover:underline py-.5 px-2 m-3   hover:border-transparent rounded">Not a member yet?</Link>
+
         </main>
-    )
+    </>)
 }
 

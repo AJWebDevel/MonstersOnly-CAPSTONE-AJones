@@ -58,14 +58,18 @@ export const ProfileDisplay = () => {
 
 
 
-    return (<div>
+    return (<div className=" grid-cols-2 mt-10 text-Monster-Black-100  ml-8 float-left w-1/4  rounded">
         {
             daters?.map(
                 (dater) => {
                     if (parseInt(daterId) === monsterUserObj.id) {
 
-                        return (<section key={dater.id} className="customer">
-                            <header>{dater?.user?.fullName}</header>
+                        return (<section key={dater.id} className="bg-Monster-Green text-center mr-2 rounded box-border border-2 border-Monster-Black-100">
+                            <div className="flex  items-center justify-center">
+                                <img src={dater.imgURL}
+                                    alt="daterPhoto" className="rounded m-5 shadow-lg" />
+                            </div>
+                            <header className="text-2xl underline">{dater?.user?.fullName}</header>
                             <p>Age: {dater.age}</p>
                             <div className="likes"> Likes:
                                 {likes.map(like => {
@@ -79,15 +83,32 @@ export const ProfileDisplay = () => {
                             </div>
 
                             <footer>Location: {dater.location}</footer>
-                            <button onClick={() => {
-                                navigate("EditProfile")
-                            }}>Edit Profile </button>
+                            <button className="content-right bg-transparent  hover:font-semibold hover:text-white py-.5 px-2 m-3  border border-black hover:border-transparent rounded"
+                                onClick={() => {
+                                    navigate("EditProfile")
+                                }}>Edit Profile </button>
                         </section>)
                     } else {
 
-                        return (<section key={dater.id} className="customer">
-                            <header>{dater?.user?.fullName}</header>
-                            <footer>Age: {dater.age}</footer>
+                        return (<section key={dater.id} className="bg-Monster-Green p-2 shadow-md text-center rounded box-border border-2 border-Monster-Black-100">
+                            <div className="flex  items-center justify-center ">
+                                <img src={dater.imgURL}
+                                    alt="daterPhoto" className="rounded m-5 shadow-lg" />
+                            </div>
+                            <header className="text-2xl underline">{dater?.user?.fullName}</header>
+                            <p>Age: {dater.age}</p>
+                            <div className="likes"> Likes:
+                                {likes.map(like => {
+                                    return <p key={like.id}> {like?.topic?.text} </p>
+                                })}
+                            </div>
+                            <div className="dislikes"> Dislikes:
+                                {dislikes.map(dislike => {
+                                    return <p key={dislike.id}> {dislike?.topic?.text} </p>
+                                })}
+                            </div>
+
+                            <footer>Location: {dater.location}</footer>
 
 
 

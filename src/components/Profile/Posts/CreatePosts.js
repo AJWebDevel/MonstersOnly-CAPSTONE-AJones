@@ -34,9 +34,9 @@ export const CreatePost = () => {
 
     //return new post form
     return (
-        <form>
-            <h2>Create A New Post</h2>
-            <fieldset>
+        <form className="border-2 border-Monster-Black-100 w-2/3 mr-5   bg-Monster-Orange shadow-md rounded  mt-20 float-right">
+            <h2 className="font-semibold mb-1 m-3">Create A New Post</h2>
+            <fieldset className="m-3 mt-1 ">
                 <div>
                     <input
                         required autoFocus
@@ -55,12 +55,14 @@ export const CreatePost = () => {
                     />
                 </div>
             </fieldset>
+            <div className=" float-route  items-center justify-center">
+                <button
+                    onClick={(clickEvent) => handleSubmitButtonClick(clickEvent)}
+                    className="submitButton float-right bg-transparent mt-2 hover:font-semibold hover:text-Monster-Green py-.5 px-2 m-3  border border-black hover:border-transparent rounded">
+                    Submit & Post
+                </button>
+            </div>
 
-            <button
-                onClick={(clickEvent) => handleSubmitButtonClick(clickEvent)}
-                className="submitButton">
-                Submit & Post
-            </button>
         </form>
     )
 }
