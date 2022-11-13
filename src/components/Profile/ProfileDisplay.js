@@ -58,7 +58,7 @@ export const ProfileDisplay = () => {
 
 
 
-    return (<div className=" grid-cols-2 mt-10 text-Monster-Black-100  ml-8 float-left w-1/4  rounded">
+    return (<div className=" font-crimson-text grid-cols-2 mt-10 text-Monster-Black-100  ml-8 float-left w-1/4  rounded">
         {
             daters?.map(
                 (dater) => {

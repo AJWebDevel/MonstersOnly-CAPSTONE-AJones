@@ -5,16 +5,16 @@ export const AdminNav = () => {
     const navigate = useNavigate()
 
     return (<div className="bg-Monster-Black-100   text-white w-screen">
-        <ul className="flow-root ">
+        <ul className="flow-root font-crimson-text">
             <div className="float-left">
-                <h3 className=" m-4 content-center">Monsters Only</h3>
+                <h3 className=" m-4  content-center">Monsters Only</h3>
             </div>
             <div className="float-right m-3 mr-10 ">
                 <li className="navbar__item active content-center mr-3 ml-3 hover:font-semibold hover:text-Monster-Green">
                     <Link className="navbar__link" to="/UserList">User List</Link>
                 </li>
                 <li className="navbar__item active mr-3 ml-3 hover:font-semibold hover:text-Monster-Green">
-                    <Link className="navbar__link" to="/LandingPage">MainPage</Link>
+                    <Link className="navbar__link" to="/LandingPage">Main Page</Link>
                 </li>
                 <li className="navbar__item active mr-3 ml-3 hover:font-semibold hover:text-Monster-Green">
                     <Link className="navbar__link" to="/MeetUps">Monster Meets</Link>

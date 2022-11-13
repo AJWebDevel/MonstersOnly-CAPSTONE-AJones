@@ -30,10 +30,10 @@ export const Login = () => {
 
     return (<>
 
-        <nav className="bg-Monster-Black-100   sticky top-0 z-50 text-white w-screen">
+        <nav className="bg-Monster-Black-100  font-crimson-text sticky top-0 z-50 text-white w-screen">
 
             <div className="float-left">
-                <h3 className="content-center">Monsters Only</h3>
+                <h3 className="content-center m-2">Monsters Only</h3>
             </div>
             <div className="float-right m-3">
                 <h4 className="content-center">Human Folks Just Don't Get It!</h4>
@@ -41,13 +41,13 @@ export const Login = () => {
         </nav>
 
 
-        <main className="container--login border-Monster-Black-100 border-4 bg-Monster-Green flex flex-col items-center justify-center m-20 rounded shadow-md">
+        <main className="container--login border-Monster-Black-100 font-crimson-text border-4 bg-Monster-Green flex flex-col items-center justify-center m-20 rounded shadow-md">
             <section className="    ">
                 <form className=" flow-route flex flex-col " onSubmit={handleLogin}>
                     <h1 className="text-4xl text-center underline m-4">Monsters Only</h1>
 
                     <fieldset className="text-center">
-                        <h4 className="font-bold mb-5">Please sign in</h4>
+                        <h4 className="font-semibold text-2xl ">Please sign in</h4>
                         <label htmlFor="inputEmail" className="block text-grey-darker text-sm  mb-2"> Email address </label>
                         <input type="email"
                             value={email}

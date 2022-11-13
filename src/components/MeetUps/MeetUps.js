@@ -20,9 +20,9 @@ export const MeetUps = () => {
     )
 
 
-    return <main className=" flex  bg-Monster-Green m-20 p-10 ">
+    return <main className=" flex font-crimson-text bg-Monster-Green m-20 p-10 ">
         <div className="text-center ">
-            <h3 className=" font-semibold underline">Monster Meets</h3>
+            <h3 className=" font-semibold text-5xl underline">Monster Meets</h3>
             <div className=" text-center">
                 {
                     meets.map(

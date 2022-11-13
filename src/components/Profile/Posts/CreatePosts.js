@@ -34,14 +34,14 @@ export const CreatePost = () => {
 
     //return new post form
     return (
-        <form className="border-2 border-Monster-Black-100 w-2/3 mr-5   bg-Monster-Orange shadow-md rounded  mt-20 float-right">
-            <h2 className="font-semibold mb-1 m-3">Create A New Post</h2>
+        <form className="border-2 font-crimson-text border-Monster-Black-100 w-2/3 mr-5   bg-Monster-Orange shadow-md rounded  mt-20 float-right">
+            <h2 className="font-bold mb-2 text-2xl m-3">Create A New Post</h2>
             <fieldset className="m-3 mt-1 ">
                 <div>
                     <input
                         required autoFocus
                         type="text"
-                        className="form-control"
+                        className="form-control w-full"
                         placeholder="What do you want to say?"
                         value={post.content}
                         onChange={
