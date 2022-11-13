@@ -128,17 +128,17 @@ export const Register = (props) => {
     }
 
     return (<>
-        <nav className="bg-Monster-Black-100   sticky top-0 z-50 text-white w-screen">
+        <nav className="bg-Monster-Black-100 font-crimson-text  sticky top-0 z-50 text-white w-screen">
 
             <div className="float-left">
-                <h3 className="content-center">Monsters Only</h3>
+                <h3 className="content-center m-2 font-crimson-text">Monsters Only</h3>
             </div>
             <div className="float-right m-3">
                 <h4 className="content-center ml-10">Human Folks Just Don't Get It!</h4>
             </div>
         </nav>
 
-        <div className="flex items-center justify-center text-center h-screen">
+        <div className="flex font-crimson-text items-center justify-center text-center h-screen">
             <form className="form--login rounded m-10 p-20  border-4 border-Monster-Black-100 bg-Monster-Green" onSubmit={handleRegister}>
                 <h1 className="text-2xl mb-3 -mt-10 underline font-semibold ">Please Register for Monsters Only Dating Service</h1>
                 <fieldset>

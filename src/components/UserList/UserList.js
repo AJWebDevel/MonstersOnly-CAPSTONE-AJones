@@ -69,8 +69,8 @@ export const UserList = () => {
 
 
 
-    return (<div className="bg-Monster-Green grid-cols-3 text-Monster-Black-100 m-20 p-5 rounded">
-        <h2 className="text-white text-center p-4 underline text-4xl m-6 ">User List</h2>
+    return (<div className="bg-Monster-Green grid-cols-3 font-crimson-text text-Monster-Black-100 m-20 p-5 rounded">
+        <h2 className=" text-center p-4 underline text-5xl m-6 ">User List</h2>
         <main className="">
             {
                 daters.map(

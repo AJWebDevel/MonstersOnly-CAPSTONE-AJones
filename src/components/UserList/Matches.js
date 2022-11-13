@@ -80,7 +80,7 @@ export const Matches = () => {
         })
 
 
-    return (<div className="bg-Monster-Green grid-cols-3 text-Monster-Black-100 m-20 p-5 rounded">
+    return (<div className="bg-Monster-Green font-crimson-text grid-cols-3 text-Monster-Black-100 m-20 p-5 rounded">
         <h2 className=" text-center  font-semibold underline text-4xl m-6 p-4 ">Potential Matches</h2>
         <main className="">
             {
@@ -104,7 +104,9 @@ export const Matches = () => {
                                     </div>
                                 </div>
                                 <div className="flex items-center justify-center">
-                                    <button onClick={() => { navigate(`Profile/${dater.userId}`) }}
+                                    <button onClick={() => {
+                                        return window.alert(`Think this peron is a scream? \nShoot them a message at: ${dater?.user?.email}`)
+                                    }}
                                         className="acceptButton bg-transparent  hover:font-semibold hover:text-Monster-Green py-.5 px-2 m-3  border border-black hover:border-transparent rounded" > Accept!</button >
                                 </div>
 

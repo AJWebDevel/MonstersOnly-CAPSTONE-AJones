@@ -7,7 +7,7 @@ export const DaterNav = () => {
     const monsterUserObj = JSON.parse(localMonsterUser)
 
     return (<div className="bg-Monster-Black-100   text-white w-screen">
-        <ul className="navbar flow-root">
+        <ul className="navbar font-crimson-text flow-root">
             <h3 className=" ml-4 title float-left">Monsters Only</h3>
             <div className="float-right m-3 mr-10">
                 <li className="navbar__item active content-center mr-3 ml-3 hover:font-semibold hover:text-Monster-Green">

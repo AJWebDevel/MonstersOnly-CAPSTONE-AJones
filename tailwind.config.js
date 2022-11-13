@@ -10,7 +10,11 @@ module.exports = {
           100: '#120B16',
           200: '#1E1E1E'
         }
-      }
+      },
+      fontFamily: {
+        'crimson-text': ["Crimson Text", 'serif'],
+
+      },
     },
 
   },
