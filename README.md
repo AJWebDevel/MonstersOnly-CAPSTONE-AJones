@@ -28,3 +28,6 @@ The development process began with creating a json API of data to use in the pro
 
 ## Challenges
 The main challenge in this project was just figuring out how to work with layered data. There were a couple times when I had to go about new methods or get multiple perspectives to figure out how to get the information needed. Implementing Tailwind also provided a challenge, but it was mostly afun challenge, discovering how it works.
+
+### Link to API
+[Monsters Only API](https://github.com/AJWebDevel/AJWebDevel-CapstoneAPI-MonstersOnly-AJones)
