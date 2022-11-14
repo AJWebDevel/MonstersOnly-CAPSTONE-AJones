@@ -29,7 +29,7 @@ export const CreateMeetUps = () => {
 
 
 
-    return <main className="bg-transparent flex items-center justify-center">
+    return <main className="bg-transparent font-crimson-text flex items-center justify-center">
 
         <form className="bg-Monster-Orange rounded m-20 p-20 ">
             <h2 className="font-semibold text-3xl text-center -mt-10 mb-8 m-3 underline">Create A New Monster Meet</h2>
